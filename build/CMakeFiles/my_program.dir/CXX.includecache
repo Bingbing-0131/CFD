@@ -18,23 +18,7 @@ iomanip
 sstream
 -
 
-../include/upwind.h
-iostream
--
-Eigen/Dense
--
-fstream
--
-
-/home/bingbing/Computation_Fluid/hw3/src/main.cpp
-iostream
--
-iomanip
--
-Eigen/Dense
--
-upwind.h
-/home/bingbing/Computation_Fluid/hw3/src/upwind.h
+/home/bingbing/Computation_Fluid/hw3/src/Implicit_Euler.cpp
 Implicit_Euler.h
 /home/bingbing/Computation_Fluid/hw3/src/Implicit_Euler.h
 

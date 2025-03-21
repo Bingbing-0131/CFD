@@ -17,7 +17,7 @@ void ImplicitEuler::Initialize(int mx_, double CFL_, double a_, std::string fold
     }
 
     folder = folder_;
-    BuildMatrix();  // Build matrix for implicit solve
+    BuildMatrix();  
 }
 
 double ImplicitEuler::Initial_condition(double x) {
@@ -32,19 +32,21 @@ double ImplicitEuler::Initial_condition(double x) {
 void ImplicitEuler::BuildMatrix() {
     A.setZero();
     for (int i = 0; i <= mx; ++i) {
-        A(i, i) = 1.0 + CFL;
-        if (i == 0)
-            A(i, mx) = -CFL;  // periodic wrap
-        else
-            A(i, i - 1) = -CFL;
+        A(i, i) = 1.0;
+
+        // Central difference (symmetric)
+        int ip = (i + 1) % (mx + 1);           // i+1 with periodic wrap
+        int im = (i - 1 + (mx + 1)) % (mx + 1); // i-1 with periodic wrap
+
+        A(i, ip) = CFL / 2.0;
+        A(i, im) = -CFL / 2.0;
     }
 }
 
+
 void ImplicitEuler::Forward() {
-    // Solve A * u_new = u_prev
     u_new = A.colPivHouseholderQr().solve(u_prev);
 
-    // Update for next step
     u_prev = u_new;
 }
 
