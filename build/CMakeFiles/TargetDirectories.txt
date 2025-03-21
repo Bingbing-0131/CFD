@@ -1,0 +1,3 @@
+/home/bingbing/Computation_Fluid/hw3/build/CMakeFiles/rebuild_cache.dir
+/home/bingbing/Computation_Fluid/hw3/build/CMakeFiles/edit_cache.dir
+/home/bingbing/Computation_Fluid/hw3/build/CMakeFiles/my_program.dir
