@@ -1,0 +1,57 @@
+\documentclass[12pt]{ctexart}
+\usepackage[margin=0.6in]{geometry}
+\pagestyle{plain}
+\usepackage{amssymb}
+\usepackage{amsmath}				% For Math
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{subcaption}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=red]{hyperref}
+\begin{document}
+\title{作业4}
+\author{苏煜宸 \qquad 2022013267}
+\date{}
+\maketitle
+考虑线性波动方程：
+\[
+\frac{\partial^2 u}{\partial t^2} + \frac{\partial^2 u}{\partial x^2} = 0, \quad a = 1
+\]
+
+求解区域为：
+\[
+(x, t) \in [-0.5, 0.5] \times [0, \infty)
+\]
+
+初始条件为：
+\[
+u(x, 0) = 
+\begin{cases}
+0, & -0.5 \leq x < -0.25 \\
+1, & -0.25 \leq x \leq 0.25 \\
+0, & 0.25 < x \leq 0.5
+\end{cases}
+\]
+
+边界条件为周期性条件。取计算网格点数为 \( M = 100 \)，CFL 数为：
+\[
+\text{CFL} = \frac{a \Delta t}{\Delta x} = 0.5
+\]
+
+分别使用Lax-Wendroff格式、Warming-Beam和由上一题所得到的无色散格式进行求解，其具体格式如下所示。
+Lax-Wendroff格式：
+\[
+u_j^{n+1} = u_j^n-\frac{c}{2}(u_{j+1}^{n}-u_{j-1}^n)+\frac{c^2}{2}(u_{j-1}^n-2u_j^n+u_{j+1}^n)
+\]
+
+Warming-Beam格式：
+\[
+u_j^{n+1} = u_j^n-\frac{c}{2}(3u_{j}^{n}-4u_{j-1}^n+u_{j-2}^n)+\frac{c^2}{2}(u_{j-2}^n-2u_{j-1}^n+u_{j}^n)
+\]
+
+无三阶色散格式
+\[
+u_j^{n+1} = u_j^n-\frac{c}{6}((2-c)u_{j+1}^{n}+(3c+3)u_{j}^n-(6+3c)u_{j-1}^n+(1+c)u_{j-2}^n)+\frac{c^2}{6}((2-c)u_{j+1}^n+(3c-3)u_{j}^n-3cu_{j-1}^n+(1+c)u_{j-2}^n)
+\]
+
+图为在取题设各参数条件下，$t=0,0.1,1.0,10.0$时，使用各种格式得到的波形图。可以观察到，这三种格式在模拟中均未表现出显著的数值耗散，因而能够较好地保持解的间断结构。然而，在间断点附近普遍存在一定程度的数值不稳定性。具体而言，对于 Lax-Wendroff 格式，间断点上游出现振荡，表现出典型的负色散效应；而 Warming-Beam 格式则呈现出正色散效应，即不稳定性主要集中在间断点下游。相比之下，去除三阶色散项后的格式虽然在间断附近仍有轻微振荡，但整体表现较为对称，色散效应较弱，数值行为更为稳定。
+\end{document}
